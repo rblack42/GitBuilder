@@ -1,0 +1,11 @@
+# Python
+_venv/
+_logs
+_repos
+__pycache__
+*.py[cod]
+.tox
+
+# Vim
+*~
+*.swp
