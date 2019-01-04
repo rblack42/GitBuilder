@@ -6,8 +6,8 @@ import logging
 REPO_PATH = '_repos'
 
 logging.basicConfig(
-        filename='_logs/gitbuilder.info.log',
-        level=logging.WARN
+    filename='_logs/gitbuilder.info.log',
+    level=logging.WARN
 )
 
 

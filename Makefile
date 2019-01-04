@@ -4,4 +4,5 @@ reqs: ## Install python requirements
 
 .PHONY: test
 test:
+	nosetests .
 	flake8 .
