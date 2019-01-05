@@ -4,8 +4,9 @@
 #
 # Manufacture Git Repositories for tutorials
 
-from GitBuilder import repo
+from GitBuilder import repo, store
 import pygit2
+import os
 
 
 class GitBuilder(object):
@@ -31,3 +32,11 @@ class GitBuilder(object):
 
     def create_branch(self, branch_name):
         pass
+
+    def add(self, file_path, contents):
+        file_path, file_name = os.path.split(file_path)
+        file_dir = store.file_dir(file_path, file_name)
+        os.makedirs(file_path, exist_ok=True)
+        fout = open(os.path.join(file_path, file_name), "w")
+        fout.write(contents)
+        fout.close()
