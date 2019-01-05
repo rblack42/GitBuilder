@@ -1,3 +1,9 @@
+REPOS = _repos
+
+.PHONY: lint
+lint: 
+	flake8 .
+
 .PHONY: reqs
 reqs: ## Install python requirements
 	pip install -r requirements.txt
@@ -5,4 +11,7 @@ reqs: ## Install python requirements
 .PHONY: test
 test:
 	nosetests .
-	flake8 .
+
+.PHONY: clean
+clean:
+	rm -rf $(REPOS)/* 

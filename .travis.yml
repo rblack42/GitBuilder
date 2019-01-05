@@ -1,0 +1,16 @@
+sudu: false
+language: python
+
+before install:
+  - sudo apt-get update -qq
+
+install:
+  - make reqs
+
+before_script:
+  - make clean
+
+script:
+  - make lint
+  - make test
+
