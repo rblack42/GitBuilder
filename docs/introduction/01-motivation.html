@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Git Builder &mdash; GitBuilder 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Git Builder" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> GitBuilder
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Git Builder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#where-is-the-code">Where is the Code</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GitBuilder</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Git Builder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/introduction/01-motivation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="git-builder">
+<h1>Git Builder<a class="headerlink" href="#git-builder" title="Permalink to this headline">¶</a></h1>
+<p>I have been teaching software engineering for many years. For the last ten
+years I have been using Python Sphinx to build my lecture notes, but I have
+been unhappy about how I need to use that tool to show students how code should
+evolve as they work on a project. I use the Sphinx <code class="docutils literal notranslate"><span class="pre">literalinclude</span></code> directive
+to include code snippets on my notes. Ideally the code displayed should be
+correct and work! But to show a project as it might be developed, I end up
+creating many versions of the same file. That has always seemed silly, and Git
+provides an answer.</p>
+<p>Each version of a code file is managed by Git in a nice simple way.
+Essentially, a copy of every version of a file is maintained in the Git
+history, and can be retrieved when needed using the Git <code class="docutils literal notranslate"><span class="pre">checkout</span></code> command.
+What I wanted was something similar for my lecture notes.</p>
+<p>Initially, I tried to use Nathan Yergler’s the <a class="reference external" href="https://github.com/nyergler/tut">tut</a> Sphinx extension, which
+lets you perform a <code class="docutils literal notranslate"><span class="pre">checkout</span></code> on versions of a project as the lecture notes
+are constructed. However, when writing lecture notes, this is not an ideal
+solution. One version of my notes may prove to be inadequate in explaining what is
+going on to my class, and I need to rewrite the notes. Often the code being
+used needs to be rewritten as well.  That means I need to back up in time and
+change the history of my example code.  Although this can be done, making
+changes in the history of a Git project is a pain.</p>
+<p>What I wanted was a way to manufacture a repository using my lecture notes.
+That repository would be built up step by step as the student reads through the
+notes. As this happens, I want to run the code and display output from the
+project at that point in the lecture.</p>
+<p>The real trick in doing this is making sure the repository exactly matches my
+notes, even after rewriting them. That means that my code repository is not a
+permanent thing, as are most Git repositories. My lecture code repositories
+will be constructed from scratch every time I build my lecture notes for
+display to students.</p>
+<div class="section" id="where-is-the-code">
+<h2>Where is the Code<a class="headerlink" href="#where-is-the-code" title="Permalink to this headline">¶</a></h2>
+<p>If the repository is going to be destroyed every thine I process my lecture
+notes, where will I keep the various versions of my code files? Again, Git
+provides an answer. Instead of keepint the actual code in a “real” Git
+repository, I keep the files in a pseudo-git file store. Every version of a
+file is maintained in a content-addressible store similar to the one used by
+Git. However, it is not quite identical.</p>
+<p>Code files need to be stored in specific places in the final Git repository.
+That path, which includes the file name, is used to create a store directory
+name. The process used is as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>hash the full file path using MD5. This generates a 40 character  code</li>
+<li>Break that cod einto two parts, one two character long, and the other 38 cjaracters long</li>
+<li>Store the fil in a directory/subdirectory using those two codes</li>
+<li>Add a version umber to the file name in that directory</li>
+</ul>
+</div></blockquote>
+<p>When a <code class="docutils literal notranslate"><span class="pre">literalinclude</span></code> directive is to be used, the documentation will
+specify the file path and version to be displayed. The correct file will be
+placed in the test repository and committed to the repo using normal Git
+commands. (Actually, PyGit2 will do this).</p>
+<p>Code can be run using the Sphinx <code class="docutils literal notranslate"><span class="pre">program-output</span></code> extension.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As this project evolves, Knuth’s <a class="reference external" href="https://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a> concept will be
+used to streamline all of this. The actual code will be in the notes, and
+the pseudo-git file store may be modified or removed.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Git Builder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Roie R. Black
+      Last updated on Jan 05, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
