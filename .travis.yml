@@ -1,8 +1,16 @@
-sudu: false
+sudo: false
 language: python
+
+cache: pip
 
 python:
   - "3.6"
+
+env: LIBGIT2=~/libgit2/_install/ LD_LIBRARY_PATH=~/libgit2/_install/lib
+
+before_install:
+  - sudo apt-get install cmake
+  -  "./travis.sh"
 
 install:
   - make reqs
