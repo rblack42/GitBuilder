@@ -2,7 +2,7 @@
 
 cd ~
 
-git clone --depth=1 -b maint/v0.27 http://github.com/libgit2/libgit2.hit
+git clone --depth=1 -b maint/v0.27 http://github.com/libgit2/libgit2.git
 cd libgit2
 
 mkdir build && cd build

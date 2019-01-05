@@ -23,7 +23,7 @@ processed, and every version of the code can be tested as this happens.  The
 result is a good way to show code as it evolves during development sessions
 using Git as a code management tool. 
 
-The idea for this project originated from Donald Knuth's Literate Programming
+The idea for this project originated from Donald Knuth's `Literate Programming`_
 concept. 
 
 ..  _`Literate Programming`:    https://en.wikipedia.org/wiki/Literate_programming
