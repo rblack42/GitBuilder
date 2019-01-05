@@ -1,8 +1,8 @@
 sudu: false
 language: python
 
-before install:
-  - sudo apt-get update -qq
+python:
+  - "3.6"
 
 install:
   - make reqs
