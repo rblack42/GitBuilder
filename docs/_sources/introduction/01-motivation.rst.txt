@@ -1,7 +1,7 @@
 Git Builder
 ###########
 
-..  include::   /references.inc
+..  include::   /header.inc
 
 I have been teaching software engineering for many years. For the last ten
 years I have been using Python Sphinx to build my lecture notes, but I have
@@ -40,36 +40,59 @@ display to students.
 Where is the Code
 *****************
 
-If the repository is going to be destroyed every thine I process my lecture
-notes, where will I keep the various versions of my code files? Again, Git
-provides an answer. Instead of keepint the actual code in a "real" Git
-repository, I keep the files in a pseudo-git file store. Every version of a
-file is maintained in a content-addressible store similar to the one used by
-Git. However, it is not quite identical.
+If the repository is going to be destroyed every time I process my lecture
+notes, where will I keep the various versions of my code files?  The answer is
+simple: in the notes! Code fragments will be marked using a custom Sphinx
+``directive`` scheme, and extracted from those notes to build the repository as
+the document is processed. 
 
-Code files need to be stored in specific places in the final Git repository.
-That path, which includes the file name, is used to create a store directory
-name. The process used is as follows:
+This approach is exactly what Donald Knuth proposed in his `Literate Programming`_ concept. However, GitBuilder_ will not implement all of Knuth's ideas.
 
-    * hash the full file path using MD5. This generates a 40 character  code
+For the present, we will introduce three new directives:
 
-    * Break that cod einto two parts, one two character long, and the other 38 cjaracters long
+    * pylit_file: marks the start of a code file
 
-    * Store the fil in a directory/subdirectory using those two codes
+    * pylit_add: adds new code to a file
 
-    * Add a version umber to the file name in that directory
+..  pylit-block::    c++
+    :blktype: file
+    :caption: hello.cpp
 
-When a ``literalinclude`` directive is to be used, the documentation will
-specify the file path and version to be displayed. The correct file will be
-placed in the test repository and committed to the repo using normal Git
-commands. (Actually, PyGit2 will do this).
+    #include <iostream>
 
-Code can be run using the Sphinx ``program-output`` extension.
+    int main(void) {
+        std::cout << "Hello, World" << std::endl;
+    }
 
-..  note::
+..  pylit-block::    c++
+    :caption: src/main.cpp
+    :blktype:  file
+    
+     <<[ header_includes ]>>
 
-    As this project evolves, Knuth's `Literate Programming`_ concept will be
-    used to streamline all of this. The actual code will be in the notes, and
-    the pseudo-git file store may be modified or removed.
+    int main(void) {
+        <<[ message ]>>
 
+    }
 
+..  pylit-block::   c++
+    :caption: header_includes
+    :blktype: block
+
+    #include <iostream>
+
+..  pylit-block::   c++
+    :blktype: block
+    :caption: message
+
+    std::cout << "Hello, World" << std::endl;
+
+..  todo::
+
+    Get this done
+
+..  todo::
+
+    And this as well
+
+..  vim:filetype=rst spell:

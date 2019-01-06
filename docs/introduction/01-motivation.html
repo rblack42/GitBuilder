@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Git Repositories" href="02-repository.html" />
     <link rel="prev" title="Git Builder" href="../index.html" /> 
 
   
@@ -86,6 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#where-is-the-code">Where is the Code</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="02-repository.html">Git Repositories</a></li>
 </ul>
 
             
@@ -152,6 +154,7 @@
             
   <div class="section" id="git-builder">
 <h1>Git Builder<a class="headerlink" href="#git-builder" title="Permalink to this headline">¶</a></h1>
+<p>Read time: 10 minutes (2644 words)</p>
 <p>I have been teaching software engineering for many years. For the last ten
 years I have been using Python Sphinx to build my lecture notes, but I have
 been unhappy about how I need to use that tool to show students how code should
@@ -183,33 +186,59 @@ will be constructed from scratch every time I build my lecture notes for
 display to students.</p>
 <div class="section" id="where-is-the-code">
 <h2>Where is the Code<a class="headerlink" href="#where-is-the-code" title="Permalink to this headline">¶</a></h2>
-<p>If the repository is going to be destroyed every thine I process my lecture
-notes, where will I keep the various versions of my code files? Again, Git
-provides an answer. Instead of keepint the actual code in a “real” Git
-repository, I keep the files in a pseudo-git file store. Every version of a
-file is maintained in a content-addressible store similar to the one used by
-Git. However, it is not quite identical.</p>
-<p>Code files need to be stored in specific places in the final Git repository.
-That path, which includes the file name, is used to create a store directory
-name. The process used is as follows:</p>
+<p>If the repository is going to be destroyed every time I process my lecture
+notes, where will I keep the various versions of my code files?  The answer is
+simple: in the notes! Code fragments will be marked using a custom Sphinx
+<code class="docutils literal notranslate"><span class="pre">directive</span></code> scheme, and extracted from those notes to build the repository as
+the document is processed.</p>
+<p>This approach is exactly what Donald Knuth proposed in his <a class="reference external" href="https://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a> concept. However, <a class="reference external" href="https://rblack42.github.io/GitBuilder">GitBuilder</a> will not implement all of Knuth’s ideas.</p>
+<p>For the present, we will introduce three new directives:</p>
 <blockquote>
 <div><ul class="simple">
-<li>hash the full file path using MD5. This generates a 40 character  code</li>
-<li>Break that cod einto two parts, one two character long, and the other 38 cjaracters long</li>
-<li>Store the fil in a directory/subdirectory using those two codes</li>
-<li>Add a version umber to the file name in that directory</li>
+<li>pylit_file: marks the start of a code file</li>
+<li>pylit_add: adds new code to a file</li>
 </ul>
 </div></blockquote>
-<p>When a <code class="docutils literal notranslate"><span class="pre">literalinclude</span></code> directive is to be used, the documentation will
-specify the file path and version to be displayed. The correct file will be
-placed in the test repository and committed to the repo using normal Git
-commands. (Actually, PyGit2 will do this).</p>
-<p>Code can be run using the Sphinx <code class="docutils literal notranslate"><span class="pre">program-output</span></code> extension.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">As this project evolves, Knuth’s <a class="reference external" href="https://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a> concept will be
-used to streamline all of this. The actual code will be in the notes, and
-the pseudo-git file store may be modified or removed.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">&lt;&lt;hello.cpp&gt;&gt;==</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello, World&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">&lt;&lt;src/main.cpp&gt;&gt;==</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span> <span class="o">&lt;&lt;</span><span class="p">[</span> <span class="n">header_includes</span> <span class="p">]</span><span class="o">&gt;&gt;</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">&lt;&lt;</span><span class="p">[</span> <span class="n">message</span> <span class="p">]</span><span class="o">&gt;&gt;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">&lt;&lt;header_includes&gt;&gt;==</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">&lt;&lt;message&gt;&gt;==</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello, World&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Get this done</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">And this as well</p>
 </div>
 </div>
 </div>
@@ -222,6 +251,8 @@ the pseudo-git file store may be modified or removed.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="02-repository.html" class="btn btn-neutral float-right" title="Git Repositories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
       
         <a href="../index.html" class="btn btn-neutral" title="Git Builder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
@@ -233,7 +264,7 @@ the pseudo-git file store may be modified or removed.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2018, Roie R. Black
-      Last updated on Jan 05, 2019.
+      Last updated on Jan 06, 2019.
 
     </p>
   </div>

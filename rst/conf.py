@@ -22,12 +22,18 @@ today_fmt = '%B %d, %Y'
 extensions = [ 
     'sphinx.ext.imgmath',
     'sphinx.ext.githubpages',
+    'sphinx_ext.wordcount',
+    'sphinx_ext.literate',
+    'sphinx_ext.todo',
 ]
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
+
+todo_include_todos = True
+todo_emit_warnings = True
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinx_rtd_theme'
