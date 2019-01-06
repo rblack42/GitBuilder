@@ -1,6 +1,11 @@
 sudo: false
 language: python
 
+os:
+  - windows
+  - linux
+  - mac
+
 cache: pip
 
 python:
