@@ -20,13 +20,13 @@ build_script:
       cmake -DSTDCALL=OFF -DBUILD_CLAR=OFF -DCMAKE_INSTALL_PREFIX="%LIBGIT2%" ../libgit2 -G "%GENERATOR%"
       cmake --build . --config Release --target install
       cd ..
-    
+   
 install:
   - $env:LIBGIT2 = ($Env:APPVEYOR_BUILD_FOLDER + "\build\libgit2")
     &$env:PYTHON --version
     &$env:PYTHON -m pip install -r requirements.txt
 
-build_script:
+test_script:
   - cmd: flake8 .
   - cmd: nosetests
  
