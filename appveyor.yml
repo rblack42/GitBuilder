@@ -1,0 +1,31 @@
+build: false
+version: '0.0.0+build.{build}'
+clone_depth: 20
+environment:
+  GIT_PATH: "C:\\Program FIles\\Git\\mingw64\\libexec\\git-core"
+  
+  matrix:
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
+    - PYTHON: "C:\\Python35-x64"
+      PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "64"
+
+  init:
+    - SET PATH=%PYTHOB%;%PYTHON%\Scripts;%GIT_PATH%;%PATH%
+    - ECHO %PYTHON% %PYTHON_VERSION% PYTHON_ARCH%
+    - ECHO %PATH%
+    - python --version
+
+  install:
+    - python -m pip install --upgrade pip
+    - cmd: pip install -r requirements.txt
+    - |
+      git config user.email "tester@apveyor.com"
+      git confit --global user.name "APveyor Tester"
+
+  build_script:
+    - cmd: flake8 .
+    - cmd: nosetests
+ 
