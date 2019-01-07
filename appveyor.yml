@@ -5,7 +5,7 @@ environment:
   
   matrix:
     - GENERATOR: 'Visual Studio 14 Win64'
-    - PYTHON: "C:\Python36-x64"
+    - PYTHON: "C:\\Python36-x64"
 
 init:
   - cmd: |
