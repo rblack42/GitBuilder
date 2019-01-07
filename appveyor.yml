@@ -1,18 +1,25 @@
 version: '0.0.0+build.{build}'
+image: Visual Studio 2015
+
 environment:
   
   matrix:
-    - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6"
-      PYTHON_ARCH: "64"
+    - GENERATOR: 'Visual Studio 14 Win64'
+    - PYTHON: 'C:\Python36-x64"
 
+init:
+  - cmd: |
+      set LIBGIT2=%APPVEYOR_BUILD_FOLDER%\build\libgit2
+      git clone --depth=1 -b maint/v0.25 https://github.com/libgit2/libgit2.git libgit2
+      mkdir build    
+      cd build
+      cmake -DSTDCALL=OFF -DBUILD_CLAR=OFF -DCMAKE_INSTALL_PREFIX="%LIBGIT2%" ../libgit2 -G "%GENERATOR%"
+      cmake --build . --config Release --target install
+      cd ..
+    
 install:
-
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-
-  # Check that we have the expected version and architecture for Python
   - "python --version"
-
   - "python -m pip install --upgrade pip"
   - cmd: pip install -r requirements.txt
 
