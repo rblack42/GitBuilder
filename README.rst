@@ -6,7 +6,7 @@ GitBuilder
 :License: BSD 3-Clause
 :Email: rblack@austincc.edu
 
-|travis-build| |license|
+|travis-build| |appveyor-build| |license|
 
 Description
 ***********
@@ -41,3 +41,6 @@ files are hosted on GitHub at the URL shown above.
 
 ..  |license| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: BSD 3-Clause License
+
+..  |appveyor-build| image:: https://ci.appveyor.com/api/projects/status/6mws37b0x0nd6v24?svg=true
+    :alt: AppVeyor Windows build

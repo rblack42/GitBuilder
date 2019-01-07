@@ -2,15 +2,13 @@ build: false
 version: '0.0.0+build.{build}'
 clone_depth: 20
 environment:
-  GIT_PATH: "C:\\Program FIles\\Git\\mingw64\\libexec\\git-core"
+  GIT_PATH: "C:\\Program Files\\Git\\mingw64\\libexec\\git-core"
   
   matrix:
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
-    - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5"
-      PYTHON_ARCH: "64"
+      SPHINXBUILD: "%PYTHON%/scripts/sphinx-build.exe"
 
   init:
     - SET PATH=%PYTHON%;%PYTHON%\Scripts;%GIT_PATH%;%PATH%
