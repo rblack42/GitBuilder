@@ -1,27 +1,20 @@
-build: false
 version: '0.0.0+build.{build}'
-clone_depth: 20
 environment:
-  GIT_PATH: "C:\\Program Files\\Git\\mingw64\\libexec\\git-core"
   
   matrix:
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
-      SPHINXBUILD: "%PYTHON%/scripts/sphinx-build.exe"
 
-  init:
-    - SET PATH="%PYTHON%;%PYTHON%\Scripts;%GIT_PATH%;%PATH%"
-    - ECHO %PYTHON% %PYTHON_VERSION% PYTHON_ARCH%
-    - ECHO %PATH%
-    - python --version
+install:
 
-  install:
-    - python -m pip install --upgrade pip
-    - cmd: pip install -r requirements.txt
-    - |
-      git config user.email "tester@apveyor.com"
-      git confit --global user.name "APveyor Tester"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+  # Check that we have the expected version and architecture for Python
+  - "python --version"
+
+  - "python -m pip install --upgrade pip"
+  - cmd: pip install -r requirements.txt
 
   build_script:
     - cmd: flake8 .
