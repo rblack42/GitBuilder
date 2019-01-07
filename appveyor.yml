@@ -4,7 +4,7 @@ image: Visual Studio 2015
 environment:
   
   matrix:
-    - GENERATOR: 'Visual Studio 14 Win64'
+    - GENERATOR: 'Visual Studio 15 2017 Win64'
     - PYTHON: "C:\\Python36-x64"
 
 init:
