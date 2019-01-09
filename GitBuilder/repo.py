@@ -13,6 +13,8 @@ logging.basicConfig(
 
 def init(repo_name):
     '''create a new repo, delete old one if necessary'''
+    if not os.path.exists(REPO_PATH):
+        os.makedirs(REPO_PATH)
     repo_path = os.path.join(REPO_PATH, repo_name)
     if os.path.isdir(repo_path):
         logging.info("deleting old repo: " + repo_path)
