@@ -19,8 +19,6 @@ build_script:
       cd ..
 
 install:
-  - $env:LIBGIT2 = ($env:%APPVEYOR_BUILD_FOLDER% + "\build\libgit2")
-  - $env:PYTHON --version
   - $env:PYTHON -m pip install -r requirements.txt
 
 test_script:
