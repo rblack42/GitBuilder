@@ -3,8 +3,8 @@ environment:
   matrix:
     - TARGET: python36
       PYTHON: 'C:\\Python-36-x64'
-      PYTHON_VERSION: 3.6.5
-      PYTHON_ARCH: 64
+      pyver: 3
+      bits: 64
 
 
 init:
@@ -23,7 +23,7 @@ build_script:
       cd ..
 
 install:
-  - cmd: "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+  - cmd: "python -m pip install -r requirements.txt"
 
 test_script:
   - cmd: flake8 .
