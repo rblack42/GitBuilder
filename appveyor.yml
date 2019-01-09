@@ -9,8 +9,8 @@ environment:
 
 init:
   - "ECHO %PYTHON% %vcvars% (%bits%)"
-  - python -c "import sys;print('Python version is {}'.format(sys.version))"
-  - python -m pip install -U nose'
+  - "%PYTHON%\\python.exe -c "import sys;print('Python version is {}'.format(sys.version))"
+  - "%PYTHON%\\python.exe -m pip install -U nose"
 
 build_script:
   - cmd: |
@@ -23,7 +23,7 @@ build_script:
       cd ..
 
 install:
-  - cmd: "python -m pip install -r requirements.txt"
+  - cmd: "%PYTHON%\\python.exe -m pip install -r requirements.txt"
 
 test_script:
   - cmd: flake8 .
