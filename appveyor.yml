@@ -2,7 +2,7 @@ version: '1.0.{build}'
 environment:
   matrix:
     - TARGET: python36
-      PYTHON: 'C:\\Python-36-x64'
+      PYTHON: 'C:\\Python36-x64'
       pyver: 3
       bits: 64
 
