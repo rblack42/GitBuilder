@@ -1,15 +1,11 @@
 version: '1.0.{build}'
 environment:
   matrix:
-    - TARGET: python36
-      PYTHON: 'C:\\Python36-x64'
-      pyver: 3
-      bits: 64
-
-
+    - GENERATOR: 'Visual Studio 14 Win64'
+      PYTHON: 'C:\Python36-x64'       
 init:
-  - "%PYTHON%\\python.exe -m pip install --upgrade pip"
-  - "%PYTHON%\\python.exe -m pip install -U nose"
+  - "%PYTHON%\\python -m pip install --upgrade pip"
+  - "%PYTHON%\\python -m pip install -U nose"
 
 build_script:
   - cmd: |
@@ -23,6 +19,7 @@ build_script:
 
 install:
   - cmd: "%PYTHON%\\python -m pip install -r requirements.txt"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
 test_script:
   - cmd: flake8 .
