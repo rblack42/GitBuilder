@@ -4,6 +4,7 @@ environment:
     - GENERATOR: 'Visual Studio 14 Win64'
       PYTHON: 'C:\Python36-x64'       
 init:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "%PYTHON%\\python -m pip install --upgrade pip"
   - "%PYTHON%\\python -m pip install -U nose"
 
@@ -16,10 +17,10 @@ build_script:
       cmake -DSTDCALL=OFF -DBUILD_CLAR=OFF -DCMAKE_INSTALL_PREFIX="%LIBGIT2%" ../libgit2 -G "%GENERATOR%"
       cmake --build . --config Release --target install
       cd ..
+  - cmd: mkdir _repos
 
 install:
   - cmd: "%PYTHON%\\python -m pip install -r requirements.txt"
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
 test_script:
   - cmd: flake8 .
