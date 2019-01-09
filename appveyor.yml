@@ -8,7 +8,7 @@ environment:
 
 
 init:
-  - "ECHO %PYTHON% %vcvars% (%bits%)
+  - "ECHO %PYTHON% %vcvars% (%bits%)"
   - python -c "import sys;print('Python version is {}'.format(sys.version))"
   - python -m pip install -U nose'
 
