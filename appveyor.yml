@@ -8,7 +8,9 @@ environment:
 
 
 init:
-  - cmd: '%PYTHON%\\python.exe -m pip install -U nose'
+  - "ECHO %PYTHON% %vcvars% (%bits%)
+  - python -c "import sys;print('Python version is {}'.format(sys.version))"
+  - python -m pip install -U nose'
 
 build_script:
   - cmd: |
