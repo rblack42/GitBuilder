@@ -2,13 +2,14 @@ version: '1.0.{build}'
 image: Visual Studio 2017
 environment:
   matrix:
-    - PYTHON: 'C:\Python-36-x64\python.exe'
+    - TARGET: python36
+      PYTHON: 'C:\Python-36-x64'
       PYTHON_VERSION: 3.6.5
       PYTHON_ARCH: 64
 
 
 init:
-  - cmd: '%PYTHON% -m pip install -U nose'
+  - cmd: '%PYTHON%\\python.exe -m pip install -U nose'
 
 build_script:
   - cmd: |
@@ -21,7 +22,7 @@ build_script:
       cd ..
 
 install:
-  - cmd: python -m pip install -r requirements.txt
+  - cmd: "%PYTHON%\\python.exe -m pip install -r requirements.txt"
 
 test_script:
   - cmd: flake8 .
