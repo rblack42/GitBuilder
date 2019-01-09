@@ -1,9 +1,8 @@
 version: '1.0.{build}'
-image: Visual Studio 2017
 environment:
   matrix:
     - TARGET: python36
-      PYTHON: 'C:\Python-36-x64'
+      PYTHON: 'C:\\Python-36-x64'
       PYTHON_VERSION: 3.6.5
       PYTHON_ARCH: 64
 
